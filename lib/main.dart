@@ -13,7 +13,7 @@ class AplikasiBCA extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'm-BCA Pro',
       theme: ThemeData(
-        fontFamily: 'sans-serif', 
+        fontFamily: 'sans-serif',
         primaryColor: const Color(0xFF003A6A),
       ),
       home: const HalamanUtama(),
@@ -24,13 +24,25 @@ class AplikasiBCA extends StatelessWidget {
 class HalamanUtama extends StatelessWidget {
   const HalamanUtama({super.key});
 
-  // Konstanta Warna Elegan
   static const Color biruTua = Color(0xFF003A6A);
   static const Color biruBca = Color(0xFF005697);
-  static const Color abuLatar = Color(0xFFF8F9FA); 
+  static const Color abuLatar = Color(0xFFF8F9FA);
 
   @override
   Widget build(BuildContext context) {
+    final jam = DateTime.now().hour;
+    String sapaan;
+
+    if (jam >= 5 && jam < 11) {
+      sapaan = "Selamat Pagi,";
+    } else if (jam >= 11 && jam < 15) {
+      sapaan = "Selamat Siang,";
+    } else if (jam >= 15 && jam < 18) {
+      sapaan = "Selamat Sore,";
+    } else {
+      sapaan = "Selamat Malam,";
+    }
+
     return Scaffold(
       backgroundColor: abuLatar,
       appBar: AppBar(
@@ -43,10 +55,9 @@ class HalamanUtama extends StatelessWidget {
             Text(
               "m-BCA",
               style: TextStyle(
-                color: Colors.white, 
-                fontWeight: FontWeight.w600, 
-                letterSpacing: 1.5 
-              ),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.5),
             ),
           ],
         ),
@@ -60,7 +71,6 @@ class HalamanUtama extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            
             Container(
               height: 160,
               width: double.infinity,
@@ -74,28 +84,29 @@ class HalamanUtama extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Selamat Siang,", style: TextStyle(color: Colors.white70, fontSize: 14)),
-                  SizedBox(height: 4),
-                  Text(
-                    "MAULANA ACH DANI", 
-                    style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                children: [
+                  // Perbaikan: Menggunakan variabel sapaan
+                  Text(sapaan,
+                      style: const TextStyle(color: Colors.white70, fontSize: 14)),
+                  const SizedBox(height: 4),
+                  const Text(
+                    "MAULANA ACH DANI",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-
-            
             Stack(
               clipBehavior: Clip.none,
               children: [
-
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.only(top: 85, left: 20, right: 20),
                   child: Column(
                     children: [
-              
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -104,13 +115,24 @@ class HalamanUtama extends StatelessWidget {
                         crossAxisSpacing: 10,
                         children: const [
                           MenuUtama(ikon: Icons.info_outline, label: "m-Info"),
-                          MenuUtama(ikon: Icons.swap_horiz_outlined, label: "m-Transfer"),
-                          MenuUtama(ikon: Icons.receipt_long_outlined, label: "m-Payment"),
-                          MenuUtama(ikon: Icons.shopping_bag_outlined, label: "m-Commerce"),
+                          MenuUtama(
+                              ikon: Icons.swap_horiz_outlined,
+                              label: "m-Transfer"),
+                          MenuUtama(
+                              ikon: Icons.receipt_long_outlined,
+                              label: "m-Payment"),
+                          MenuUtama(
+                              ikon: Icons.shopping_bag_outlined,
+                              label: "m-Commerce"),
                           MenuUtama(ikon: Icons.qr_code_scanner, label: "QRIS"),
-                          MenuUtama(ikon: Icons.keyboard_alt_outlined, label: "Keyboard"),
-                          MenuUtama(ikon: Icons.credit_card_outlined, label: "Flazz"),
-                          MenuUtama(ikon: Icons.person_add_alt_1_outlined, label: "Buka Akun"),
+                          MenuUtama(
+                              ikon: Icons.keyboard_alt_outlined,
+                              label: "Keyboard"),
+                          MenuUtama(
+                              ikon: Icons.credit_card_outlined, label: "Flazz"),
+                          MenuUtama(
+                              ikon: Icons.person_add_alt_1_outlined,
+                              label: "Buka Akun"),
                         ],
                       ),
                       const SizedBox(height: 35),
@@ -121,8 +143,6 @@ class HalamanUtama extends StatelessWidget {
                     ],
                   ),
                 ),
-
-
                 Positioned(
                   top: -50,
                   left: 20,
@@ -144,16 +164,21 @@ class HalamanUtama extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Total Saldo", style: TextStyle(color: Colors.grey, fontSize: 13)),
+                        const Text("Total Saldo",
+                            style: TextStyle(color: Colors.grey, fontSize: 13)),
                         const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
                             Text(
                               "Rp 12.750.000",
-                              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: biruTua),
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                  color: biruTua),
                             ),
-                            Icon(Icons.visibility_outlined, color: Colors.grey, size: 20),
+                            Icon(Icons.visibility_outlined,
+                                color: Colors.grey, size: 20),
                           ],
                         ),
                       ],
@@ -166,15 +191,15 @@ class HalamanUtama extends StatelessWidget {
         ),
       ),
     );
-  }
+  } // Perbaikan: Menghapus tanda ; dan } yang salah posisi
 
-  
   Widget _sectionTitle(String title) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
         title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+        style: const TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
       ),
     );
   }
@@ -190,14 +215,18 @@ class HalamanUtama extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(backgroundColor: biruBca.withOpacity(0.1), child: const Icon(Icons.star_outline, color: biruBca)),
+          CircleAvatar(
+              backgroundColor: biruBca.withOpacity(0.1),
+              child: const Icon(Icons.star_outline, color: biruBca)),
           const SizedBox(width: 15),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(t, style: const TextStyle(fontWeight: FontWeight.bold)),
-              Text(st, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-            ],
+          Expanded( // Mencegah teks kepotong (overflow)
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(t, style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(st, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+              ],
+            ),
           )
         ],
       ),
@@ -222,7 +251,10 @@ class MenuUtama extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: Colors.blue.shade50, width: 2),
             boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0, 4)),
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4)),
             ],
           ),
           child: Icon(ikon, color: const Color(0xFF005697), size: 28),
@@ -230,7 +262,8 @@ class MenuUtama extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.black54),
+          style: const TextStyle(
+              fontSize: 11, fontWeight: FontWeight.w600, color: Colors.black54),
           textAlign: TextAlign.center,
         ),
       ],

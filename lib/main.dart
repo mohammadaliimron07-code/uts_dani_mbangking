@@ -1,159 +1,160 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AplikasiBCA());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AplikasiBCA extends StatelessWidget {
+  const AplikasiBCA({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Menghilangkan banner debug di pojok kanan
-      title: 'BCA Mobile Replica',
+      debugShowCheckedModeBanner: false,
+      title: 'm-BCA Pro',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: 'sans-serif', 
+        primaryColor: const Color(0xFF003A6A),
       ),
-      home: const BCAMobileHomePage(),
+      home: const HalamanUtama(),
     );
   }
 }
 
-class BCAMobileHomePage extends StatelessWidget {
-  const BCAMobileHomePage({super.key});
+class HalamanUtama extends StatelessWidget {
+  const HalamanUtama({super.key});
 
-  // 1. Definisikan Warna Khas BCA
-  final Color bcaBlue = const Color(0xFF005697);  
-  final Color bcaNavy = const Color(0xFF003A6A);  
-  final Color bcaGray = const Color(0xFFF0F0F0);  
+  // Konstanta Warna Elegan
+  static const Color biruTua = Color(0xFF003A6A);
+  static const Color biruBca = Color(0xFF005697);
+  static const Color abuLatar = Color(0xFFF8F9FA); 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bcaGray, 
-      
-      // 2. Bagian Atas (AppBar)
+      backgroundColor: abuLatar,
       appBar: AppBar(
-        backgroundColor: bcaNavy,
-        elevation: 0, 
+        backgroundColor: biruTua,
+        elevation: 0,
         title: Row(
           children: const [
-            Icon(Icons.account_balance, color: Colors.white, size: 28),
-            SizedBox(width: 10),
+            Icon(Icons.shield_outlined, color: Colors.white, size: 24),
+            SizedBox(width: 12),
             Text(
-              "m-BCA", 
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22)
+              "m-BCA",
+              style: TextStyle(
+                color: Colors.white, 
+                fontWeight: FontWeight.w600, 
+                letterSpacing: 1.5 
+              ),
             ),
           ],
         ),
         actions: [
           IconButton(
-            onPressed: () {}, 
-            icon: const Icon(Icons.notifications_none, color: Colors.white, size: 28)
+            icon: const Icon(Icons.help_outline, color: Colors.white),
+            onPressed: () {},
           ),
-          const SizedBox(width: 10),
         ],
       ),
-      
       body: SingleChildScrollView(
         child: Column(
           children: [
             
-            // 3. Header Biru (Welcome Section)
             Container(
-              height: 180,
+              height: 160,
               width: double.infinity,
-              color: bcaNavy,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [biruTua, biruBca],
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Text("Selamat Datang,", style: TextStyle(color: Colors.white70)),
+                  Text("Selamat Siang,", style: TextStyle(color: Colors.white70, fontSize: 14)),
+                  SizedBox(height: 4),
                   Text(
-                    "Maulana Ach Dani", // Silakan ganti dengan namamu
-                    style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)
+                    "MAULANA ACH DANI", 
+                    style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
                 ],
               ),
             ),
 
-            // 4. Bagian Konten dengan Stack (Untuk membuat efek kartu melayang)
+            
             Stack(
               clipBehavior: Clip.none,
               children: [
-                // Container Utama untuk Menu & Promo
+
                 Container(
                   width: double.infinity,
-                  color: bcaGray,
-                  padding: const EdgeInsets.only(top: 80, left: 15, right: 15),
+                  padding: const EdgeInsets.only(top: 85, left: 20, right: 20),
                   child: Column(
                     children: [
-                      
-                      // 5. Grid Menu (8 Icon)
+              
                       GridView.count(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         crossAxisCount: 4,
-                        mainAxisSpacing: 20,
+                        mainAxisSpacing: 25,
                         crossAxisSpacing: 10,
-                        children: [
-                          _buildMenuItem(Icons.info_outline, "m-Info"),
-                          _buildMenuItem(Icons.send_outlined, "m-Transfer"),
-                          _buildMenuItem(Icons.payment_outlined, "m-Payment"),
-                          _buildMenuItem(Icons.shopping_cart_outlined, "m-Commerce"),
-                          _buildMenuItem(Icons.qr_code_scanner_outlined, "QRIS"),
-                          _buildMenuItem(Icons.account_balance_wallet_outlined, "BCA Keyboard"),
-                          _buildMenuItem(Icons.phone_android_outlined, "Flazz"),
-                          _buildMenuItem(Icons.add_circle_outline, "Buka Rekening"),
+                        children: const [
+                          MenuUtama(ikon: Icons.info_outline, label: "m-Info"),
+                          MenuUtama(ikon: Icons.swap_horiz_outlined, label: "m-Transfer"),
+                          MenuUtama(ikon: Icons.receipt_long_outlined, label: "m-Payment"),
+                          MenuUtama(ikon: Icons.shopping_bag_outlined, label: "m-Commerce"),
+                          MenuUtama(ikon: Icons.qr_code_scanner, label: "QRIS"),
+                          MenuUtama(ikon: Icons.keyboard_alt_outlined, label: "Keyboard"),
+                          MenuUtama(ikon: Icons.credit_card_outlined, label: "Flazz"),
+                          MenuUtama(ikon: Icons.person_add_alt_1_outlined, label: "Buka Akun"),
                         ],
                       ),
-                      
-                      const SizedBox(height: 30),
-                      
-                      // 6. Bagian Promo
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Promo & Penawaran", 
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)
-                        ),
-                      ),
+                      const SizedBox(height: 35),
+                      _sectionTitle("Promo Spesial"),
                       const SizedBox(height: 15),
-                      _buildPromoCard("Makin Hemat pakai QRIS BCA", "Cashback hingga 50% di merchant pilihan."),
-                      _buildPromoCard("Beli Pulsa & Paket Data", "Bonus kuota melimpah."),
+                      _buildPromoItem("Reward BCA", "Tukar poin dengan diskon menarik."),
+                      _buildPromoItem("Investasi", "Mulai masa depan dengan Welma."),
                     ],
                   ),
                 ),
 
-                // 7. Kartu Saldo (Positioned agar melayang di atas Stack)
+
                 Positioned(
-                  top: -60, 
+                  top: -50,
                   left: 20,
                   right: 20,
                   child: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(22),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(18),
                       boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 10, offset: const Offset(0, 5)),
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.06),
+                          blurRadius: 25,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 10),
+                        ),
                       ],
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        const Text("Total Saldo", style: TextStyle(color: Colors.grey, fontSize: 13)),
+                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("Tabungan Anda", style: TextStyle(color: Colors.black54)),
-                            Icon(Icons.more_vert, color: bcaNavy),
+                          children: const [
+                            Text(
+                              "Rp 12.750.000",
+                              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: biruTua),
+                            ),
+                            Icon(Icons.visibility_outlined, color: Colors.grey, size: 20),
                           ],
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Rp 10.500.000,00", 
-                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black)
                         ),
                       ],
                     ),
@@ -167,65 +168,72 @@ class BCAMobileHomePage extends StatelessWidget {
     );
   }
 
-  // --- Fungsi Helper (Supaya Kode Lebih Rapi) ---
-
-  // Fungsi untuk membuat item menu icon bulat
-  Widget _buildMenuItem(IconData iconData, String title) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle, 
-            border: Border.all(color: Colors.blue[100]!),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5, offset: const Offset(0, 2)),
-            ],
-          ),
-          child: Icon(iconData, color: bcaBlue, size: 28),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          title, 
-          style: const TextStyle(fontSize: 11, color: Colors.black87, fontWeight: FontWeight.w500), 
-          textAlign: TextAlign.center
-        ),
-      ],
+  
+  Widget _sectionTitle(String title) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+      ),
     );
   }
 
-  // Fungsi untuk membuat kartu promo di bagian bawah
-  Widget _buildPromoCard(String title, String subtitle) {
+  Widget _buildPromoItem(String t, String st) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 5, offset: const Offset(0, 2)),
-        ],
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.grey.shade100),
       ),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: bcaBlue.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
-            child: Icon(Icons.campaign_outlined, color: bcaBlue, size: 30),
-          ),
+          CircleAvatar(backgroundColor: biruBca.withOpacity(0.1), child: const Icon(Icons.star_outline, color: biruBca)),
           const SizedBox(width: 15),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black87)),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.black54)),
-              ],
-            ),
-          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(t, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text(st, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+            ],
+          )
         ],
       ),
+    );
+  }
+}
+
+class MenuUtama extends StatelessWidget {
+  final IconData ikon;
+  final String label;
+
+  const MenuUtama({super.key, required this.ikon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.blue.shade50, width: 2),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 10, offset: const Offset(0, 4)),
+            ],
+          ),
+          child: Icon(ikon, color: const Color(0xFF005697), size: 28),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.black54),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
